@@ -1,0 +1,156 @@
+:root {
+    --box-shadow: 0 1px 6px rgba(32, 33, 36, .28);
+    --border-width: 1px;
+    --border-radius: 17px;
+}
+
+#autocomplete {
+    position: relative;
+    width: fit-content;
+    overflow: visible;
+    filter: drop-shadow(0 0 0px yellow);
+    animation: glow 1s linear alternate 6 backwards;
+}
+
+#autocomplete::before {
+    content: url(../images/search.svg);
+    position: absolute;
+    top: 2px;
+    left: 2px;
+}
+
+#autocomplete:has(#input[data-open=true]) {
+    filter: drop-shadow(var(--box-shadow));
+}
+
+#autocomplete:focus-within {
+    filter: drop-shadow(var(--box-shadow));
+}
+
+#input {
+    border-radius: var(--border-radius);
+    outline: none;
+    border: var(--border-width) solid gray;
+    font-size: 20px;
+    padding: 5px 12px;
+    width: 8px;
+    transition: width .3s;
+    /* box-shadow: 0 0 0px 0 yellow; */
+    /* filter: drop-shadow(0 0 0px yellow);
+    animation: glow 1s linear alternate 6 backwards; */
+}
+
+#autocomplete:has(#input:not(:focus):placeholder-shown) {
+    cursor: pointer;
+}
+
+#input:focus,
+#input:not(:placeholder-shown) {
+    padding-left: 33px;
+    width: 180px;
+}
+
+#input[data-open=true] {
+    border-radius: var(--border-radius) var(--border-radius) 0 0;
+    border-bottom-color: transparent;
+}
+
+#resultsContainer::before {
+    content: "";
+    height: .5px;
+    background-color: gray;
+    position: absolute;
+    top: 0;
+    left: 5%;
+    right: 5%;
+}
+
+#resultsContainer {
+    display: none;
+    position: absolute;
+    background-color: white;
+    left: 0;
+    right: 0;
+    margin-top: -1.2px;
+    border: 1px solid gray;
+    border-top: none;
+    border-radius: 0 0 var(--border-radius) var(--border-radius);
+    z-index: 1;
+    overflow: hidden;
+}
+
+#resultsContainer>p {
+    padding: 5px;
+    margin: 0;
+}
+
+/* HANDLE THIS IN JAVASCRIPT */
+/* #resultsContainer>p:hover {
+    background-color: #eee;
+} */
+
+/* ================================ */
+/* ======= UNRELATED STYLES ======= */
+/* ================================ */
+body {
+    margin: 0;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+header {
+    height: 60px;
+    background-color: #8658c8;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+}
+
+h1 {
+    margin-left: 20px;
+}
+
+#zipcodeContainer {
+    margin-left: 20px;
+}
+
+nav {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+nav>ul {
+    display: flex;
+    list-style-type: none;
+    padding-inline-start: 0;
+    gap: 15px;
+}
+
+li>a {
+    color: white;
+    text-decoration: none;
+    position: relative;
+}
+
+a::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background-color: white;
+    transition: .3s;
+}
+
+a:hover::after {
+    width: 100%;
+}
+
+@keyframes glow {
+    100% {
+        filter: drop-shadow(0 0 4px yellow);
+        /* box-shadow: 0 0 4px 1px yellow; */
+    }
+}
